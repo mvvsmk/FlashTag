@@ -4,8 +4,7 @@ from django.contrib.auth.models import User as DjangoUser
 # Create your models here.
 
 class Profile(models.Model):
-    user_id = models.IntegerField(primary_key=True)
-    user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE, primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     username = models.CharField(max_length = 30)
@@ -23,7 +22,7 @@ class Vehicles(models.Model):
     vehicle_number = models.CharField(max_length = 10)
     vehicle_type = models.CharField(max_length = 10)
     vehicle_model = models.CharField(max_length = 10)
-    vehicle_distance = models.DecimalField(decimal_places=2)
+    vehicle_distance = models.DecimalField(max_digits=10,decimal_places=2)
 
 
   
