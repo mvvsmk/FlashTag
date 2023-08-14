@@ -124,4 +124,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# my name is harit mishra
+# my name is harit mishra ||
