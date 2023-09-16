@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.staticfiles'
     'Gantry.apps.GantryConfig',
     'User.apps.UserConfig',
     'django.contrib.admin',
