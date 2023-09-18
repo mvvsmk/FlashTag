@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-
-<body>
-    <h1>Home</h1>
-    <p>Welcome to FlashTag!</p>
-</body>
-</html>
+{% extends "User/base.html" %}
+{% block content %}
+<h1>Home</h1>
+<p>Welcome to FlashTag!</p>
+{% for user in users %}
+    <div >
+        <p>UserName : {{ user.username }} </p>
+        <p>|| UserID : {{ user.id }} </p>
+    </div>
+{% endfor %}{% endblock %}
