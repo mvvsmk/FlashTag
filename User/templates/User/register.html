@@ -5,7 +5,11 @@
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Register</legend>
-            {{ form.as_p }}
+            {{ form_user.as_p }}
+        </fieldset>
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Register Profile</legend>
+            {{ form_profile.as_p }}
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outlin-info" type="submit">SignUp</button>
