@@ -1,0 +1,20 @@
+{% extends "User/base.html" %}
+{% block content %}
+<h1>Home</h1>
+<p>Welcome to FlashTag!</p>
+<h1> Tolls </h1>
+{% for Toll in Tolls %}
+    <div >
+        <p>Toll Name : {{ Toll.toll_name }} </p>
+        <p>|| Toll ID : {{ Toll.id }} </p>
+    </div>
+{% endfor %}
+<h1> transactions </h1>
+{% for Transaction in Transactions %}
+    <div >
+        <p>User Name : {{ Transaction.user.username }} </p>
+        <p>|| Transaction ID : {{ Transaction.id }} </p>
+    </div>
+{% endfor %}
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import Toll,Transaction
 
 # Create your views here.
 #dummy data for testing
@@ -55,6 +55,16 @@ transaction_data = [
         'transaction_time': 'April 3, 2021',
     },
 ]
+
+def home(request):
+    Tolls = Toll.objects.all()
+    Transactions = Transaction.objects.all()
+    context = {
+        'Tolls' : Tolls,
+        'Transactions' : Transactions 
+    }
+
+    return render(request, 'Gantry/home.html', context)
 
 # toll gantry login view
 def toll_gantry(request):
