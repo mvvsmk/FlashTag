@@ -21,5 +21,5 @@ from django.urls import path, include # Add include to the import statement
 urlpatterns = [
     path('admin/', admin.site.urls), 
     path('Gantry/', include('Gantry.urls')), # added all urls of the Gantry page
-    path('User/', include('User.urls')), # added all urls of the home page 
+    path('', include('User.urls')), # added all urls of the home page 
 ]
