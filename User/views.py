@@ -53,3 +53,5 @@ def vehicles(request):
 # transactions page view
 def transactions(request):
     return render(request, 'User/transactions.html')
+
+#login View
