@@ -54,4 +54,9 @@ def vehicles(request):
 def transactions(request):
     return render(request, 'User/transactions.html')
 
-#login View
+#register vehicle
+
+# @login_required
+# def registerVehicle(request):
+#     if request.method == 'POST':
+#         rv_form
