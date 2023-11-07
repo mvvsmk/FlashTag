@@ -17,7 +17,7 @@ class Vehicle(models.Model):
     vehicle_number = models.CharField(max_length = 10,primary_key=True)
     vehicle_type = models.CharField(max_length = 10)
     vehicle_model = models.CharField(max_length = 10)
-    vehicle_distance = models.DecimalField(max_digits=10,decimal_places=2)
+    vehicle_distance = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 
     def __str__(self):
         return self.user.username + " " + self.vehicle_number

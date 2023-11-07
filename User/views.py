@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, UserProfileResgisterForm
+from .forms import UserRegisterForm, UserProfileResgisterForm, VehicleResgisterForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Vehicle
 
@@ -54,9 +54,29 @@ def vehicles(request):
 def transactions(request):
     return render(request, 'User/transactions.html')
 
-#register vehicle
+#register vehicle    vehicle_type = forms.CharField(max_length=10)
+    vehicle_model = forms.CharField(max_length=10)
 
-# @login_required
-# def registerVehicle(request):
-#     if request.method == 'POST':
-#         rv_form
+@login_required
+def registerVehicle(request):
+    if request.method == 'POST':
+        rv_form = VehicleResgisterForm()
+        if rv_form.is_valid() :
+            vehicle = rv_form.save(commit=False)
+            vehicle.vehicle_number = rv_form.cleaned_data.get("vehicle_number")
+            vehicle.vehicle_type = rv_form.cleaned_data.get("vehicle_type")
+            vehicle.vehicle_model = rv_form.cleaned_data.get("vehicle_model")
+            vehicle.vehicle_distance = 0
+            vehicle.user = request.user
+            vehicle.save()
+            # flash message
+            messages.success(request, f'Vehicle registered!')
+            # redirect to home page
+            return redirect('User-home')
+        else :
+            messages.warning(request, f'Vehicle not registerd!')
+    else:
+        rv_form = VehicleResgisterForm()
+    return render(request, 'User/registerVehicle.html',{'rv_form':rv_form})
+
+
