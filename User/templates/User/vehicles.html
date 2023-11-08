@@ -1,18 +1,16 @@
 
 {% extends "User/base.html" %}
 {% block content %}
-    {% for profile in profiles %}
+    {% for vehicle in vehicles %}
     <article class="media content-section">
       <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
         <div class="media-body">
           <div class="article-metadata">
-            <h2><a class="article-title " href="#">{{ profile.user.username }}</a></h2>
-            <a class="mr-2" href="#">User ID : {{ profile.user.id }}</a>
+            <a class="mr-2" href="#">{{ vehicle.user.username }}</a>
+            <small class="text-muted"> {{ vehicle.vehicle_type }} | {{ vehicle.vehicle_model }} </small> 
           </div>
-          <p class="article-content"> Addhar : {{ profile.addhar_number }} 
-            Phone Number: {{ profile.phone_number }}
-            Money : {{ profile.account_balance }}
-          </p>
+          <h2><a class="article-title" href="#">{{ vehicle.vehicle_number }}</a></h2>
+          <p class="article-content">{{ vehicle.user.id }} | dist travelled = {{ vehicle.vehicle_distance }}</p>
         </div>
       </article>
     {% endfor %}

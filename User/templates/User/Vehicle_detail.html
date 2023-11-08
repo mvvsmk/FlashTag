@@ -1,0 +1,14 @@
+{% extends "User/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
+      <div class="media-body">
+        <div class="article-metadata">
+          <h1 class="mr-2"> Vehicle Number : {{ object.vehicle_number }} </h1>
+          <small class="text-muted"> Vehicle Number : {{ object.vehicle_numbe }} </small> 
+        </div>
+        <h2 class="article-title" >{{ object.vehicle_type }} || {{ object.vehicle_model }} </h2>
+        <p class="article-content">dist travelled = {{ object.vehicle_distance }}</p>
+      </div>
+    </article>
+{% endblock content %}

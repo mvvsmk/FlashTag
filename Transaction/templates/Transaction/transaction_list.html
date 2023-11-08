@@ -1,18 +1,16 @@
 
 {% extends "User/base.html" %}
 {% block content %}
-    {% for profile in profiles %}
+    {% for Transaction in Transactions %}
     <article class="media content-section">
       <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
         <div class="media-body">
           <div class="article-metadata">
-            <h2><a class="article-title " href="#">{{ profile.user.username }}</a></h2>
-            <a class="mr-2" href="#">User ID : {{ profile.user.id }}</a>
+            <a class="mr-2" href="{% url 'Transaction:Transaction-detail' Transaction.id %}"> Transaction ID : {{ Transaction.id }}</a>
+            <small class="text-muted"> Vehicle Number : {{ Transaction.vehicle_number.vehicle_number }} </small> 
           </div>
-          <p class="article-content"> Addhar : {{ profile.addhar_number }} 
-            Phone Number: {{ profile.phone_number }}
-            Money : {{ profile.account_balance }}
-          </p>
+          <h2><a class="article-title" href="#">{{ Transaction.vehicle.vehicle_number }}</a></h2>
+          <p class="article-content">{{ Transaction.user.username }} paid {{ Transaction.transaction_amount }} at {{ Transaction.toll.toll_location }} | dist travelled = {{ Transaction.vehicle_distance }}</p>
         </div>
       </article>
     {% endfor %}

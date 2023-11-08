@@ -40,14 +40,27 @@ class UserProfileResgisterForm(forms.ModelForm):
         model = Profile
         fields = ['addhar_number','phone_number']
 
-
+#vehicle register form for the registration of the vehiclepage
 class VehicleResgisterForm(forms.ModelForm):
-    # vehicle_number = forms.CharField(max_length=10)#,validators=[RegexValidator(regex="^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$",
-    #                                                 #                           message="Enter valid liscence plate number without spaces and specal charecters")])
-    # vehicle_type = forms.CharField(max_length=10)
-    # vehicle_model = forms.CharField(max_length=10)
-
+    vehicle_number = forms.CharField(max_length=10,validators=[RegexValidator(regex="^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$",
+                                                                               message="Enter valid liscence plate number without spaces and specal charecters")])
+    vehicle_type = forms.CharField(max_length=10)
+    vehicle_model = forms.CharField(max_length=10)
     class Meta:
         model = Vehicle
         fields = ['vehicle_number','vehicle_type','vehicle_model']
+
+# for the profile page
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ['username','email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['addhar_number','phone_number']
+
     

@@ -20,6 +20,8 @@ from django.urls import path, include # Add include to the import statement
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
-    path('Gantry/', include('Gantry.urls')), # added all urls of the Gantry page
+    # path('', include('Gantry.urls')), # added all urls of the Gantry page
+    # path('', include('Toll.urls')), # added all urls of the Toll page
+    path('', include('Transaction.urls')), # added all urls of the Transaction page
     path('', include('User.urls')), # added all urls of the home page 
 ]

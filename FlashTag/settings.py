@@ -34,7 +34,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
-    'Gantry.apps.GantryConfig',
+    'Toll.apps.TollConfig',
+    'Transaction.apps.TransactionConfig',
     'User.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -130,8 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 
-LOGIN_REDIRECT_URL = 'User-register-vehicle'
-LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'User:User-landing'
+LOGIN_URL = 'User:User-login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

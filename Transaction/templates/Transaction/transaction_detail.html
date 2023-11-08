@@ -1,0 +1,14 @@
+{% extends "User/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#"> Transaction ID : {{ object.id }}</a>
+          <small class="text-muted"> Vehicle Number : {{ object.vehicle_number.vehicle_number }} </small> 
+        </div>
+        <h2><a class="article-title" href="#">{{ object.vehicle.vehicle_number }}</a></h2>
+        <p class="article-content">{{ object.user.username }} paid {{ object.transaction_amount }} at {{ object.toll.toll_location }} | dist travelled = {{ object.vehicle_distance }}</p>
+      </div>
+    </article>
+{% endblock content %}
