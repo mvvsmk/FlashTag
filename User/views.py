@@ -71,15 +71,6 @@ def registerUserView(request):
         form_profile = UserProfileResgisterForm()
     return render(request, 'User/register.html',{'form_user':form_user, 'form_profile':form_profile})
 
-# vehicles page view
-# def vehiclesView(request):
-#     login_required = True
-#     login_url = 'User-login'
-#     vehicles = {
-#         'vehilces' : Vehicle.objects.all()
-#     }
-#     return render(request, 'User/vehicles.html',vehicles)
-
 
 class VehicleListView(LoginRequiredMixin, ListView):
     model = Vehicle
@@ -99,10 +90,6 @@ class VehicleDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         curr_vehicle = get_object_or_404(DjangoUser, username=self.kwargs.get('pk'))
         return Vehicle.objects.filter(vehicle_number=curr_vehicle)
-
-# transactions page view
-# def transactions(request):
-#     return render(request, 'User/transactions.html')
 
 @login_required
 def registerVehicleView(request):
@@ -138,5 +125,19 @@ def registerVehicleView(request):
 #         if self.request.user == vehicle.user:
 #             return True
 #         return False
+
+# transactions page view
+# def transactions(request):
+#     return render(request, 'User/transactions.html')
+
+
+# vehicles page view
+# def vehiclesView(request):
+#     login_required = True
+#     login_url = 'User-login'
+#     vehicles = {
+#         'vehilces' : Vehicle.objects.all()
+#     }
+#     return render(request, 'User/vehicles.html',vehicles)
 
 

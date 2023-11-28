@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 app_name = 'Transaction'
 
 urlpatterns = [
+    path('test/', Transaction_views.test, name='test'),
     path('transactions/', Transaction_views.TransactionListView.as_view(), name='transactions-list'),
     path('transactions/<int:pk>/', Transaction_views.TransactionDetailView.as_view(), name='Transaction-detail'),
     #create a new transaction

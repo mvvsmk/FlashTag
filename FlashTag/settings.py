@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pujx7w36hk*$7k6@@)x7e25ot7yw13hlp2imyp4c3s6#+=#fa^'
+# SECRET_KEY = 'django-insecure-pujx7w36hk*$7k6@@)x7e25ot7yw13hlp2imyp4c3s6#+=#fa^'
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", default=False).lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -80,12 +83,27 @@ WSGI_APPLICATION = 'FlashTag.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#postgres://flashtag_django_postgresql_user:F11Ix7u2P5HCAih2qMlthP3vHcZrdSBU@dpg-clibq4mf27hc73a108ug-a.singapore-postgres.render.com/flashtag_django_postgresql
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES['default'] = dj_database_url.parse("postgres://flashtag_django_postgresql_user:F11Ix7u2P5HCAih2qMlthP3vHcZrdSBU@dpg-clibq4mf27hc73a108ug-a.singapore-postgres.render.com/flashtag_django_postgresql")
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': BASE_DIR / 'db.postgresql',
+#         'USER': 'DB_USER_NAME',
+#         'PASSWORD': 'DB_PASSWORD',
+#         'HOST': 'localhost',
+#         'PORT': 'PORT_NUMBER',
+#     }
+# }
 
 
 # Password validation

@@ -10,7 +10,7 @@ class Profile(models.Model):
     account_balance = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.id)
 
 class Vehicle(models.Model):
     user = models.ForeignKey(DjangoUser, on_delete=models.CASCADE)
@@ -20,5 +20,5 @@ class Vehicle(models.Model):
     vehicle_distance = models.DecimalField(max_digits=10,decimal_places=2,default=0)
 
     def __str__(self):
-        return self.user.username + " " + self.vehicle_number
+        return str(self.vehicle_number)
 

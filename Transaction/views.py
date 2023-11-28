@@ -1,4 +1,7 @@
 from typing import Any
+from django.db.models.query import QuerySet
+from django.http.response import JsonResponse
+from .serializers import TransactionSerializer
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User as DjangoUser
@@ -13,7 +16,46 @@ from Toll.models import Toll
 from User.models import Vehicle,Profile
 from django.contrib.auth.models import User as DjangoUser
 from .forms import TransactionCreateForm
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 # Create your views here.
+
+@api_view(['POST'])
+def test(request):
+    try :
+        data = request.data
+        # print(data)
+        serializer = TransactionSerializer(data=data)
+        if serializer.is_valid():
+            print("valid")
+            print(data)
+            # serializer.save(commit=False)
+            message = {
+                "status":"200",
+                "detail":"Transaction successfull",
+                "data" : data
+                }
+            return Response(message)
+        else:
+            print("invalid")
+            print(serializer.errors)
+            message = {
+                "status":"400",
+                "detail":"Invalid data ",
+                "data" : serializer.errors
+                }
+            return Response(message)
+
+    except Exception as e:
+        print(e)
+
+        message = {
+            "status":"400",
+            "detail":"Invalid data (except)"
+            }
+        return Response(message)
+
 
 # list of all transactions
 class TransactionListView(LoginRequiredMixin,ListView):
@@ -51,17 +93,17 @@ def NewTransaction(request):
                 messages.warning(request, f'Curr User and Vehicle user dont match')
                 return redirect('Transaction:Transaction-create')
             profile.account_balance -= fair
-            profile.update()
+            profile.save()
             vehicle.vehicle_distance += form.cleaned_data.get("vehicle_distance")
-            vehicle.update()
+            vehicle.save()
             transaction_amount = fair
             # save user to database
             transaction = form.save(commit=False)
             transaction.transaction_amount = transaction_amount
-            transaction.vehicle = vehicle
+            transaction.vehicle_number = vehicle
             transaction.save()
-            messages.success(request, f'Your account has been created! You are now able to log in')
-            return redirect('Trascation:transaction-list')
+            messages.success(request, f'Transaction successfull')
+            return redirect('Transaction:transactions-list')
     else:
         form = TransactionCreateForm()
     return render(request, 'Transaction/transaction_form.html', {'form': form})
