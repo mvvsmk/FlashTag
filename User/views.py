@@ -65,7 +65,7 @@ def registerUserView(request):
             # flash message
             messages.success(request, f'Account created for {username}!')
             # redirect to home page
-            return redirect('User-home')
+            return redirect('User-profile')
     else:
         form_user = UserRegisterForm()
         form_profile = UserProfileResgisterForm()
@@ -103,7 +103,7 @@ def registerVehicleView(request):
             # flash message
             messages.success(request, f'Vehicle registered!')
             # redirect to home page
-            return redirect('User-home')
+            return redirect('User-vehicles')
         else :
             messages.warning(request, f'Vehicle not registerd!')
     else:
