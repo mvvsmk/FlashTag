@@ -8,7 +8,7 @@
           <small class="text-muted"> Vehicle Number : {{ object.vehicle_number.vehicle_number }} </small> 
         </div>
         <h2><a class="article-title" href="#">{{ object.vehicle.vehicle_number }}</a></h2>
-        <p class="article-content">{{ object.user.username }} paid {{ object.transaction_amount }} at {{ object.toll.toll_location }} | dist travelled = {{ object.vehicle_distance }}</p>
+        <p class="article-content">{{ object.user.username }} paid {{ object.transaction_amount }} at {{ object.toll.toll_location }} | distance travelled = {{ object.vehicle_distance }} Km</p>
       </div>
     </article>
 {% endblock content %}

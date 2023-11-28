@@ -102,7 +102,12 @@ class VehicleDetailView(LoginRequiredMixin, DetailView):
     login_url = 'User:User-login'
 
     def get_queryset(self):
-        curr_vehicle = get_object_or_404(DjangoUser, username=self.kwargs.get('pk'))
+        curr_vehicle = self.kwargs.get('pk')
+        # if(self.request.user.id != Vehicle.objects.get(vehicle_number=curr_vehicle).user.id):
+        #     raise PermissionDenied
+        # if(not Vehicle.objects.filter(vehicle_number=curr_vehicle).exists):
+        #     raise PermissionDenied
+        
         return Vehicle.objects.filter(vehicle_number=curr_vehicle)
 
 @login_required

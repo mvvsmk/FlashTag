@@ -5,10 +5,10 @@
       <div class="media-body">
         <div class="article-metadata">
           <h1 class="mr-2"> Vehicle Number : {{ object.vehicle_number }} </h1>
-          <small class="text-muted"> Vehicle Number : {{ object.vehicle_numbe }} </small> 
+          <a class="mr-2" href="{% url 'User:User-profile' object.user.id %}">User : {{ object.user.username }}</a>
         </div>
-        <h2 class="article-title" >{{ object.vehicle_type }} || {{ object.vehicle_model }} </h2>
-        <p class="article-content">dist travelled = {{ object.vehicle_distance }}</p>
+        <h2 class="article-title" >{{ object.vehicle_type }} | {{ object.vehicle_model }} </h2>
+        <p class="article-content">distance travelled = {{ object.vehicle_distance }}</p>
       </div>
     </article>
 {% endblock content %}

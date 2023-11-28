@@ -7,10 +7,10 @@
       <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="#">{{ vehicle.user.username }}</a>
+            <a class="mr-2" href="{% url 'User:User-profile' vehicle.user.id %}">{{ vehicle.user.username }}</a>
             <small class="text-muted"> {{ vehicle.vehicle_type }} | {{ vehicle.vehicle_model }} </small> 
           </div>
-          <h2><a class="article-title" href="#">{{ vehicle.vehicle_number }}</a></h2>
+          <h2><a class="article-title" href="{% url 'User:User-vehicle-detail' vehicle.vehicle_number %}">{{ vehicle.vehicle_number }}</a></h2>
           <p class="article-content">{{ vehicle.user.id }} | dist travelled = {{ vehicle.vehicle_distance }}</p>
         </div>
       </article>
