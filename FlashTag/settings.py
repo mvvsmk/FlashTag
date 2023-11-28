@@ -83,16 +83,14 @@ WSGI_APPLICATION = 'FlashTag.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#postgres://flashtag_django_postgresql_user:F11Ix7u2P5HCAih2qMlthP3vHcZrdSBU@dpg-clibq4mf27hc73a108ug-a.singapore-postgres.render.com/flashtag_django_postgresql
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-DATABASES['default'] = dj_database_url.parse("postgres://flashtag_django_postgresql_user:F11Ix7u2P5HCAih2qMlthP3vHcZrdSBU@dpg-clibq4mf27hc73a108ug-a.singapore-postgres.render.com/flashtag_django_postgresql")
+database_url = os.environ.get("DATABASE_URL")
+DATABASES['default'] = dj_database_url.parse(database_url)
 
 # DATABASES = {
 #     'default': {
