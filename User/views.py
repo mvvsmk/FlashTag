@@ -139,7 +139,7 @@ def addMoney(request):
         profile.account_balance += int(amount)
         profile.save()
         messages.success(request, f'Amount added!')
-        return redirect('User:User-profile')
+        return redirect('User:User-profile',pk=int(request.user.id))
     else:
         form = AddFundsForm()
         return render(request, 'User/addMoney.html',{'form':form})
