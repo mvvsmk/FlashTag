@@ -67,7 +67,7 @@ class TransactionListView(LoginRequiredMixin,ListView):
 
     def get_queryset(self):
         # get all the transactions
-        return Transaction.objects.all()
+        return Transaction.objects.filter(user=self.request.user).order_by('-transaction_time')
     
 class TransactionDetailView(LoginRequiredMixin,DetailView):
     model = Transaction

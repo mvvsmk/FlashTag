@@ -1,6 +1,7 @@
 
 {% extends "User/base.html" %}
 {% block content %}
+  <h2 class="mb-3">Transactions made {{ view.kwargs.username }} ({{ page_obj.paginator.count }}) </h2>
     {% for Transaction in Transactions %}
     <article class="media content-section">
       <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->

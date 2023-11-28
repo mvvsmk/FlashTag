@@ -1,6 +1,7 @@
 
 {% extends "User/base.html" %}
 {% block content %}
+  <h2 class="mb-3">Vehicles Owned ({{ page_obj.paginator.count }}) </h2>
     {% for vehicle in vehicles %}
     <article class="media content-section">
       <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->

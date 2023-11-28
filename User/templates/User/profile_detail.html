@@ -1,0 +1,20 @@
+{% extends "User/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
+      <div class="media-body">
+        <div class="article-metadata">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+        </div>
+        <p class="article-content">Addhar Number : {{ user.profile.addhar_number }}</p>
+        <p class="article-content">Phone Number : {{ user.profile.phone_number }}</p>
+        <p class="article-content">Account Balance : {{ user.profile.account_balance }}</p>
+      </div>
+    </article>
+    <div class="border-top pt-3">
+      <small class="text-muted">
+          If the above data is outdated click here : <a class="ml-2" href="{% url 'User:User-profile-update' %}">Update Profile</a>
+      </small>
+  </div>
+{% endblock content %}

@@ -6,10 +6,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib import messages
-from .forms import UserRegisterForm, UserProfileResgisterForm, VehicleResgisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserProfileResgisterForm, VehicleResgisterForm, UserUpdateForm, ProfileUpdateForm, AddFundsForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .models import Profile, Vehicle
+from django.core.exceptions import PermissionDenied
 
 
 # Create your views here.
@@ -20,6 +21,19 @@ def home(request):
         'profiles' : Profile.objects.all(),
     }
     return render(request, 'User/home.html',context)
+
+
+class ProfileDetailView(LoginRequiredMixin, DetailView):
+    model = Profile
+    login_url = 'User:User-login'
+    
+    def get_queryset(self):
+        if(self.request.user.id != self.kwargs.get('pk')):
+            print(str(self.request.user) + " " + str(self.kwargs.get('pk')))
+            raise PermissionDenied
+        
+        curr_user = get_object_or_404(DjangoUser, id=self.request.user.id)
+        return Profile.objects.filter(user=curr_user)
 
 # profile page view
 @login_required
@@ -35,7 +49,7 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('User-profile')
+            return redirect('User:User-profile-update')
         
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -65,7 +79,7 @@ def registerUserView(request):
             # flash message
             messages.success(request, f'Account created for {username}!')
             # redirect to home page
-            return redirect('User-profile')
+            return redirect('User:User-profile')
     else:
         form_user = UserRegisterForm()
         form_profile = UserProfileResgisterForm()
@@ -77,7 +91,7 @@ class VehicleListView(LoginRequiredMixin, ListView):
     template_name = 'User/vehicles.html' 
     context_object_name = "vehicles"
     paginate_by = 5 #pagination
-    login_url = 'User-login'
+    login_url = 'User:User-login'
 
     def get_queryset(self):
         curr_user = get_object_or_404(DjangoUser, username=self.kwargs.get('username'))
@@ -85,7 +99,7 @@ class VehicleListView(LoginRequiredMixin, ListView):
     
 class VehicleDetailView(LoginRequiredMixin, DetailView):
     model = Vehicle
-    login_url = 'User-login'
+    login_url = 'User:User-login'
 
     def get_queryset(self):
         curr_vehicle = get_object_or_404(DjangoUser, username=self.kwargs.get('pk'))
@@ -93,7 +107,7 @@ class VehicleDetailView(LoginRequiredMixin, DetailView):
 
 @login_required
 def registerVehicleView(request):
-    login_url = 'User-login'
+    login_url = 'User:User-login'
     if request.method == 'POST':
         rv_form = VehicleResgisterForm(request.POST)
         if rv_form.is_valid() :
@@ -103,12 +117,27 @@ def registerVehicleView(request):
             # flash message
             messages.success(request, f'Vehicle registered!')
             # redirect to home page
-            return redirect('User-vehicles')
+            return redirect('User:User-vehicles')
         else :
             messages.warning(request, f'Vehicle not registerd!')
     else:
         rv_form = VehicleResgisterForm()
     return render(request, 'User/registerVehicle.html',{'rv_form':rv_form})
+
+@login_required
+def addMoney(request):
+    login_url = 'User:User-login'
+    if request.method == 'POST':
+        form = AddFundsForm(request.POST)
+        amount = form.data['amount']
+        profile = Profile.objects.get(user=request.user)
+        profile.account_balance += int(amount)
+        profile.save()
+        messages.success(request, f'Amount added!')
+        return redirect('User:User-profile')
+    else:
+        form = AddFundsForm()
+        return render(request, 'User/addMoney.html',{'form':form})
 
 # class VehicleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 #     model = Vehicle

@@ -63,4 +63,10 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['addhar_number','phone_number']
 
+class AddFundsForm(forms.Form):
+    amount = forms.IntegerField(min_value=10,max_value=10000)
+
+    class Meta:
+        fields = ['amount']
+
     
