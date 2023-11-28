@@ -11,7 +11,7 @@
             <small class="text-muted"> Vehicle Number : {{ Transaction.vehicle_number.vehicle_number }} </small> 
           </div>
           <h2><a class="article-title" href="#">{{ Transaction.vehicle.vehicle_number }}</a></h2>
-          <p class="article-content">{{ Transaction.user.username }} paid {{ Transaction.transaction_amount }} at {{ Transaction.toll.toll_location }} | distance travelled = {{ Transaction.vehicle_distance }} Km</p>
+          <p class="article-content">{{ Transaction.user.username }} paid {{ Transaction.transaction_amount }} at {{ Transaction.toll.toll_location }} | Distance travelled = {{ Transaction.vehicle_distance }} Km</p>
         </div>
       </article>
     {% endfor %}

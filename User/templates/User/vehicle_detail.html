@@ -8,7 +8,7 @@
           <a class="mr-2" href="{% url 'User:User-profile' object.user.id %}">User : {{ object.user.username }}</a>
         </div>
         <h2 class="article-title" >{{ object.vehicle_type }} | {{ object.vehicle_model }} </h2>
-        <p class="article-content">distance travelled = {{ object.vehicle_distance }}</p>
+        <p class="article-content">Distance travelled = {{ object.vehicle_distance }}</p>
       </div>
     </article>
 {% endblock content %}
