@@ -15,11 +15,11 @@ def validate_phone_number(phone):
             params={'phone': phone},
             )
 
-def validate_addhar_number_number(addhar):
-    if not (addhar.isdigit() and len(addhar) == 10):
+def validate_aadhar_number_number(aadhar):
+    if not (aadhar.isdigit() and len(aadhar) == 10):
         raise ValidationError(
-            _('Value entered : %(addhar)s . Addhar number must be 12 digits'), 
-            params={'addhar': addhar},
+            _('Value entered : %(aadhar)s . Aadhar number must be 12 digits'), 
+            params={'aadhar': aadhar},
             )
 
 
@@ -33,12 +33,12 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username','first_name','last_name','email','password1','password2']
 
 class UserProfileResgisterForm(forms.ModelForm):
-    addhar_number = forms.CharField(max_length=12)
+    aadhar_number = forms.CharField(max_length=12)
     phone_number = forms.CharField(max_length=10,validators=[validate_phone_number])
 
     class Meta:
         model = Profile
-        fields = ['addhar_number','phone_number']
+        fields = ['aadhar_number','phone_number']
 
 #vehicle register form for the registration of the vehiclepage
 class VehicleResgisterForm(forms.ModelForm):
@@ -61,7 +61,7 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['addhar_number','phone_number']
+        fields = ['aadhar_number','phone_number']
 
 class AddFundsForm(forms.Form):
     amount = forms.IntegerField(min_value=10,max_value=10000)
