@@ -79,7 +79,7 @@ def registerUserView(request):
             # flash message
             messages.success(request, f'Account created for {username}!')
             # redirect to home page
-            return redirect('User:User-profile')
+            return redirect('User-profile',pk=int(user.id))
     else:
         form_user = UserRegisterForm()
         form_profile = UserProfileResgisterForm()
