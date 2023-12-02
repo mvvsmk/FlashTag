@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .models import Profile, Vehicle
 from django.core.exceptions import PermissionDenied
+from django.urls import reverse
 
 
 # Create your views here.
@@ -79,7 +80,10 @@ def registerUserView(request):
             # flash message
             messages.success(request, f'Account created for {username}!')
             # redirect to home page
-            return redirect('User-profile',pk=int(user.id))
+            pk = user.id
+            # redirect(reverse('User:User-profile',kwargs={'pk':pk}))
+            return redirect('User-landing')
+
     else:
         form_user = UserRegisterForm()
         form_profile = UserProfileResgisterForm()
@@ -122,7 +126,8 @@ def registerVehicleView(request):
             # flash message
             messages.success(request, f'Vehicle registered!')
             # redirect to home page
-            return redirect('User:User-vehicles')
+            # redirect(reverse('User:User-landing',kwargs={'username':request.user.username}))
+            return redirect('User:User-landing')
         else :
             messages.warning(request, f'Vehicle not registerd!')
     else:
