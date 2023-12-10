@@ -130,7 +130,7 @@ class TollTransactionListView(UserPassesTestMixin,ListView):
     #     }
     #     return queryset
     
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         toll = get_object_or_404(Toll, id=self.kwargs.get('toll_id'))
         context_data['Toll_model'] = toll
