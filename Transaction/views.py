@@ -18,6 +18,7 @@ from django.contrib.auth.models import User as DjangoUser
 from .forms import TransactionCreateForm
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.views.generic.base import ContextMixin
 
 # Create your views here.
 
@@ -129,7 +130,7 @@ class TollTransactionListView(UserPassesTestMixin,ListView):
     #     }
     #     return queryset
     
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+    def get_context_data(self):
         context_data = super().get_context_data(**kwargs)
         toll = get_object_or_404(Toll, id=self.kwargs.get('toll_id'))
         context_data['Toll_model'] = toll
