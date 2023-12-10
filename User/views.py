@@ -24,6 +24,9 @@ def home(request):
     }
     return render(request, 'User/home.html',context)
 
+def landing(request):
+    return render(request, 'User/landing.html')
+
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile

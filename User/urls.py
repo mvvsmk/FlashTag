@@ -10,7 +10,8 @@ from django.contrib.auth import views as auth_views
 app_name = 'User'
 
 urlpatterns = [
-    path('', User_views.home, name='User-landing'),
+    path('', User_views.landing, name='User-landing'),
+    path('ViewAllProfiles', User_views.home, name='User-lists'),
     path('Profile/<int:pk>/', User_views.ProfileDetailView.as_view(), name='User-profile'),
     path('vehicle/<str:pk>/', User_views.VehicleDetailView.as_view(), name='User-vehicle-detail'),
     path('user/vehicles/<str:username>/', VehicleListView.as_view(), name='User-vehicles'),
