@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     # path('', include('Gantry.urls')), # added all urls of the Gantry page
     # path('', include('Toll.urls')), # added all urls of the Toll page
-    path('', include('Transaction.urls')), # added all urls of the Transaction page
     path('', include('User.urls')), # added all urls of the home page 
+    path('', include('Transaction.urls')), # added all urls of the Transaction page
     # path('', include('Vehicle.urls')), # added all urls of the Vehicle page
 ]

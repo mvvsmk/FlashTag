@@ -24,6 +24,7 @@ def home(request):
     }
     return render(request, 'User/home.html',context)
 
+# login page view
 def landing(request):
     return render(request, 'User/landing.html')
 
@@ -86,7 +87,7 @@ def registerUserView(request):
             # redirect to home page
             pk = user.id
             # redirect(reverse('User:User-profile',kwargs={'pk':pk}))
-            return redirect('User-landing')
+            return redirect('User:User-landing')
 
     else:
         form_user = UserRegisterForm()
