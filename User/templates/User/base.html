@@ -13,9 +13,9 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="{% static 'User/main.css' %}">
     {% if title %} 
-    <title>Django Blog - {{ title }}</title>
+    <title>FlashTag - {{ title }}</title>
     {% else %}
-    <title>Django Blog</title>
+    <title>FlashTag</title>
     {% endif %}
 </head>
 <body>
@@ -28,21 +28,24 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
               <div class="navbar-nav mr-auto">
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated and not user.is_staff %}
                 <a class="nav-item nav-link" href="{% url 'User:User-profile' user.id %}">Home</a>
-                {% else %}
-                <a class="nav-item nav-link" href="{% url 'User:User-landing' %}">Home</a>
-                {% endif %}
                 <a class="nav-item nav-link" href="{% url 'Transaction:transactions-list' %}">Transactions</a>
+                {% endif %}
               </div>
               <!-- Navbar Right Side -->
               <div class="navbar-nav">
                 {% if user.is_authenticated %}
                 <!-- <a class="nav-item nav-link" href="#">New Post</a> -->
-                  <a class="nav-item nav-link" href="{% url 'User:User-vehicles' user.username %}">Vehilces</a>
-                  <a class="nav-item nav-link" href="{% url 'User:User-register-vehicle' %}">New Vehicle</a>
-                  <a class="nav-item nav-link" href="{% url 'User:User-add-money' %}">Add Money</a>
-                  <a class="nav-item nav-link" href="{% url 'User:User-logout' %}">Logout</a>
+                
+                  {% if user.is_staff %}
+                    <a class="nav-item nav-link" href="{% url 'User:User-logout' %}">Logout</a>
+                  {% else %}
+                    <a class="nav-item nav-link" href="{% url 'User:User-vehicles' user.username %}">Vehilces</a>
+                    <a class="nav-item nav-link" href="{% url 'User:User-register-vehicle' %}">New Vehicle</a>
+                    <a class="nav-item nav-link" href="{% url 'User:User-add-money' %}">Add Money</a>
+                    <a class="nav-item nav-link" href="{% url 'User:User-logout' %}">Logout</a>
+                  {% endif %}
                 {% else %}
                 <a class="nav-item nav-link" href="{% url 'User:User-login' %}">Login</a>
                 <a class="nav-item nav-link" href="{% url 'User:User-register' %}">Register</a>
@@ -64,6 +67,7 @@
             {% endif %}
             {% block content %}{% endblock %}
           </div>
+          {% if not user.is_staff %}
           <div class="col-md-4">
             <div class="content-section">
               <h3>Our Sidebar</h3>
@@ -77,6 +81,7 @@
               </p>
             </div>
           </div>
+          {% endif %}
         </div>
       </main>
     <!-- Optional JavaScript -->

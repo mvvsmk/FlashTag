@@ -107,3 +107,34 @@ def NewTransaction(request):
     else:
         form = TransactionCreateForm()
     return render(request, 'Transaction/transaction_form.html', {'form': form})
+
+class TollTransactionListView(UserPassesTestMixin,ListView):
+    login_url = 'User:User-login'
+    model = Transaction
+    template_name = 'Transaction/toll_transaction_list.html'
+    context_object_name = 'Transactions'
+    ordering = ['-transaction_time']
+    paginate_by = 10
+
+    def test_func(self):
+        return self.request.user.is_staff
+    
+    # def get_queryset(self):
+    #     # username=self.kwargs.get('username')
+    #     # toll = self.kwargs.get('pk')
+    #     toll = get_object_or_404(Toll, id=self.kwargs.get('toll_id'))
+    #     queryset = {
+    #         "toll":toll,
+    #         "transactions":Transaction.objects.filter(toll=toll).order_by('-transaction_time')
+    #     }
+    #     return queryset
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context_data = super().get_context_data(**kwargs)
+        toll = get_object_or_404(Toll, id=self.kwargs.get('toll_id'))
+        context_data['Toll_model'] = toll
+        context_data['Transactions'] = Transaction.objects.filter(toll=toll).order_by('-transaction_time')
+        return context_data
+
+    
+

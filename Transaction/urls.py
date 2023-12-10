@@ -12,6 +12,7 @@ urlpatterns = [
     path('transactions/<int:pk>/', Transaction_views.TransactionDetailView.as_view(), name='Transaction-detail'),
     #create a new transaction
     path('transactions/create/', Transaction_views.NewTransaction, name='Transaction-create'),
+    path('toll/<int:toll_id>/', Transaction_views.TollTransactionListView.as_view(), name='Transaction-toll'),
     # path('transaction/<str:username>/', Transaction_views.transaction, name='Transaction-transaction'),
     # path('transaction/<str:username>/<str:vehicle_number>/', Transaction_views.transaction, name='Transaction-transaction'),
     # path('transaction/<str:username>/<str:vehicle_number>/<str:toll_id>/', Transaction_views.transaction, name='Transaction-transaction'),

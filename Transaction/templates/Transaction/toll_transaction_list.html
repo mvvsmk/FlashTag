@@ -1,0 +1,35 @@
+
+{% extends "User/base.html" %}
+{% block content %}
+  <h2 class="mb-3">Transactions made at {{ Toll_model.toll_location }} : </h2>
+    {% for Transaction in Transactions %}
+    <article class="media content-section">
+      <!-- <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> -->
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="{% url 'Transaction:Transaction-detail' Transaction.id %}"> Transaction ID : {{ Transaction.id }}</a>
+            <small class="text-muted"> Vehicle Number : {{ Transaction.vehicle_number.vehicle_number }} </small> 
+          </div>
+          <h2><a class="article-title" href="#">{{ Transaction.vehicle.vehicle_number }}</a></h2>
+          <p class="article-content">{{ Transaction.user.username }} paid {{ Transaction.transaction_amount }} at {{ Transaction.toll.toll_location }} | Distance travelled = {{ Transaction.vehicle_distance }} Km</p>
+        </div>
+      </article>
+    {% endfor %}
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    {% endif %}
+{% endblock content %}
