@@ -1,4 +1,5 @@
 from typing import Any
+from django.core.paginator import Paginator
 from django.db.models.query import QuerySet
 from django.http.response import JsonResponse
 from .serializers import TransactionSerializer
@@ -115,7 +116,7 @@ class TollTransactionListView(UserPassesTestMixin,ListView):
     template_name = 'Transaction/toll_transaction_list.html'
     context_object_name = 'Transactions'
     ordering = ['-transaction_time']
-    paginate_by = 10
+    # paginate_by = 5
 
     def test_func(self):
         return self.request.user.is_staff
@@ -130,11 +131,14 @@ class TollTransactionListView(UserPassesTestMixin,ListView):
     #     }
     #     return queryset
     
+    # def paginate_queryset(self, queryset, page_size: int) :
+        # return super().paginate_queryset(queryset, page_size)
+
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         toll = get_object_or_404(Toll, id=self.kwargs.get('toll_id'))
-        context_data['Toll_model'] = toll
         context_data['Transactions'] = Transaction.objects.filter(toll=toll).order_by('-transaction_time')
+        context_data['Toll_model'] = toll
         return context_data
 
     
