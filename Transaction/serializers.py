@@ -91,7 +91,7 @@ class TransactionSerializer(ModelSerializer):
         if transaction_status < 2:
             transaction_status = 2
 
-        data['transaction_status'] = transaction_status
+        data['transaction_status'] = 2
 
         # to save changes to database
         transaction = Transaction.objects.create(user=user,toll=toll,
